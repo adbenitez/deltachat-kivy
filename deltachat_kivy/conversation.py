@@ -1,16 +1,17 @@
 from deltachat import Account, account_hookimpl
+from kivy.lang import Builder
 from kivy.properties import BooleanProperty, NumericProperty
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
 from kivy.uix.recycleview import RecycleView
 from kivy.uix.recycleview.views import RecycleDataViewBehavior
-from kivymd.uix.list import ImageLeftWidget, OneLineAvatarListItem
-from kivy.lang import Builder
-from .client import DeltaChatClient
 from kivymd.uix.label import MDLabel
+from kivymd.uix.list import ImageLeftWidget, OneLineAvatarListItem
 
+from .client import DeltaChatClient
 
-Builder.load_string("""
+Builder.load_string(
+    """
 <ConversationList>:
     viewclass: "ConversationListItem"
     SelectableRecycleBoxLayout:
@@ -44,7 +45,8 @@ Builder.load_string("""
 <ConversationItem>:
     default_size_hint: 1, None
     orientation: "horizontal"
-""")
+"""
+)
 
 
 class ConversationList(RecycleView):
@@ -78,7 +80,9 @@ class Conversation(RecycleView):
         self.client.account.add_account_plugin(self)
 
     def _load_data(self, chat_id: int) -> None:
-        self.data = [{"msg_id": i} for i in self.chatlist.client.get_messages_ids(chat_id)]
+        self.data = [
+            {"msg_id": i} for i in self.chatlist.client.get_messages_ids(chat_id)
+        ]
 
     def on_selected_chat(self, chatlist: ConversationList, chat_id: int) -> None:
         self._load_data(chat_id)
@@ -158,7 +162,7 @@ class ConversationItem(RecycleDataViewBehavior, BoxLayout):
         if super().on_touch_down(touch):
             return True
         if self.collide_point(*touch.pos) and self.selectable:
-            pass # return self.parent.select_with_touch(self.index, touch)
+            pass  # return self.parent.select_with_touch(self.index, touch)
 
     def apply_selection(self, rv, index, is_selected):
         """Respond to the selection of items in the view."""

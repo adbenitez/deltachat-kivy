@@ -1,17 +1,17 @@
+from kivy.lang import Builder
 from kivy.metrics import dp
+from kivy.uix.behaviors import FocusBehavior
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.recycleboxlayout import RecycleBoxLayout
 from kivy.uix.recyclegridlayout import RecycleGridLayout
+from kivy.uix.recycleview.layout import LayoutSelectionBehavior
 from kivy.uix.widget import Widget
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.label import MDLabel
+from kivymd.uix.selection import MDSelectionList
 from kivymd.uix.spinner import MDSpinner
 from pkg_resources import DistributionNotFound, get_distribution
-from kivymd.uix.selection import MDSelectionList
-from kivy.uix.behaviors import FocusBehavior
-from kivy.uix.recycleview.layout import LayoutSelectionBehavior
-from kivy.uix.recycleboxlayout import RecycleBoxLayout
-from kivy.lang import Builder
 
 try:
     __version__ = get_distribution(__name__).version
@@ -19,7 +19,8 @@ except DistributionNotFound:
     # package is not installed
     __version__ = "0.0.0.dev0-unknown"
 
-Builder.load_string("""
+Builder.load_string(
+    """
 <Separator>:
     rgba: app.theme_cls.divider_color
     canvas:
@@ -36,17 +37,18 @@ Builder.load_string("""
 <VSeparator@Separator>:
     size_hint_x: None
     width: dp(2)
-""")
+"""
+)
 
 
 class SelectableRecycleBoxLayout(
-        FocusBehavior, LayoutSelectionBehavior, RecycleBoxLayout
+    FocusBehavior, LayoutSelectionBehavior, RecycleBoxLayout
 ):
     """Adds selection and focus behaviour to the view."""
 
 
 class SelectableRecycleGridLayout(
-        FocusBehavior, LayoutSelectionBehavior, RecycleGridLayout
+    FocusBehavior, LayoutSelectionBehavior, RecycleGridLayout
 ):
     """Adds selection and focus behaviour to the view."""
 

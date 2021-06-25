@@ -1,7 +1,9 @@
-from deltachat import Account, account_hookimpl
-from deltachat.tracker import ConfigureTracker
 from typing import List
+
+from deltachat import Account, account_hookimpl
 from deltachat.capi import ffi, lib
+from deltachat.tracker import ConfigureTracker
+
 
 class DeltaChatClient:
     def __init__(self, db_path: str) -> None:
@@ -27,7 +29,7 @@ class DeltaChatClient:
         """return list of chat ids."""
         dc_chatlist = ffi.gc(
             lib.dc_get_chatlist(self.account._dc_context, 0, ffi.NULL, 0),
-            lib.dc_chatlist_unref
+            lib.dc_chatlist_unref,
         )
 
         assert dc_chatlist != ffi.NULL
@@ -40,9 +42,12 @@ class DeltaChatClient:
         """return list of ids from messages in this chat."""
         dc_array = ffi.gc(
             lib.dc_get_chat_msgs(self.account._dc_context, chat_id, 0, 0),
-            lib.dc_array_unref
+            lib.dc_array_unref,
         )
-        return [lib.dc_array_get_id(dc_array, i) for i in range(0, lib.dc_array_get_cnt(dc_array))]
+        return [
+            lib.dc_array_get_id(dc_array, i)
+            for i in range(0, lib.dc_array_get_cnt(dc_array))
+        ]
 
     # EVENTS
 

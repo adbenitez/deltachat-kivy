@@ -5,17 +5,17 @@ from kivy.clock import Clock
 from kivy.metrics import dp
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import Screen, ScreenManager
+from kivy.uix.textinput import TextInput
 from kivymd.app import MDApp
 from kivymd.uix.button import MDRaisedButton
 from kivymd.uix.card import MDCard
 from kivymd.uix.label import MDLabel
 from kivymd.uix.snackbar import Snackbar
 from kivymd.uix.textfield import MDTextField
-from kivy.uix.textinput import TextInput
 
-from . import SpinnerDialog, VSeparator, HSeparator
+from . import HSeparator, SpinnerDialog, VSeparator
 from .client import DeltaChatClient
-from .conversation import ConversationList, Conversation
+from .conversation import Conversation, ConversationList
 from .utils import get_account_path
 
 
@@ -139,8 +139,10 @@ class ChatScreen(Screen):
         chat = account.get_chat_by_id(self.chatlist.selected_chat)
         chat.send_text(self.message_editor.text)
         self.message_editor.text = ""
+
         def task(*args):
             self.message_editor.focus = True
+
         Clock.schedule_once(task, 0)
 
 
