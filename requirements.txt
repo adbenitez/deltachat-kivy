@@ -1,0 +1,2 @@
+deltachat==1.51.0
+Kivy==2.0.0
