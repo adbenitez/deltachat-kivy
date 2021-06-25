@@ -13,5 +13,3 @@ pip install -U git+https://github.com/adbenitez/deltachat-kivy
 ## License
 
 Licensed GPLv3+, see the LICENSE file for details.
-
-Copyright © 2020 Delta Chat Kivy contributors.
